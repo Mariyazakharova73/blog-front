@@ -12,7 +12,7 @@ import { PostSkeleton } from "./Skeleton";
 import { Link } from "react-router-dom";
 
 export const Post: FC<any> = ({
-  _id,
+  id,
   title,
   createdAt,
   imageUrl,
@@ -35,7 +35,7 @@ export const Post: FC<any> = ({
     <div className={clsx(s.root, { [s.rootFull]: isFullPost })}>
       {isEditable && (
         <div className={s.editButtons}>
-          <Link to={`/posts/${_id}/edit`}>
+          <Link to={`/posts/${id}/edit`}>
             <IconButton color="primary">
               <EditIcon />
             </IconButton>
@@ -52,10 +52,10 @@ export const Post: FC<any> = ({
         <UserInfo {...user} additionalText={createdAt} />
         <div className={s.indention}>
           <h2 className={clsx(s.title, { [s.titleFull]: isFullPost })}>
-            {isFullPost ? title : <Link to={`/posts/${_id}`}>{title}</Link>}
+            {isFullPost ? title : <Link to={`/posts/${id}`}>{title}</Link>}
           </h2>
           <ul className={s.tags}>
-            {tags.map((name: string) => (
+            {tags?.map((name: string) => (
               <li key={name}>
                 <a href={`/tag/${name}`}>#{name}</a>
               </li>

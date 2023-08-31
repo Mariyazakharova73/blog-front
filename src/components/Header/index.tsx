@@ -4,11 +4,28 @@ import s from "./Header.module.scss";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import { LOGIN_PATH, MAIN_PATH, POST_CREATE_PATH, REGISTER_PATH } from "../../utils/constants";
+import { useSelector, useDispatch } from "react-redux";
+import { logout, selectIsAuth } from "../../redux/slices/authSlice";
+import { AppDispatch } from "../../redux/store";
+import { AlertAppearance } from "../../types/types";
 
-export const Header: FC = () => {
-  const isAuth = false;
+interface HeaderProps {
+  openAlert: () => void;
+  addErrorMessage: (message: string) => void;
+  changeColor: (color: AlertAppearance) => void;
+}
 
-  const onClickLogout = () => {};
+export const Header: FC<HeaderProps> = ({ openAlert, addErrorMessage, changeColor }) => {
+  const isAuth = useSelector(selectIsAuth);
+  const dispatch: AppDispatch = useDispatch();
+
+  const onClickLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("token");
+    changeColor("success");
+    openAlert();
+    addErrorMessage("Вы вышли из аккаунта!");
+  };
 
   return (
     <div className={s.root}>
