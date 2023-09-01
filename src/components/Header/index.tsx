@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import s from "./Header.module.scss";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
-import { LOGIN_PATH, MAIN_PATH, POST_CREATE_PATH, REGISTER_PATH } from "../../utils/constants";
+import { LOGIN_PATH, MAIN_PATH, ADD_POST_PATH, REGISTER_PATH } from "../../utils/constants";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, selectIsAuth } from "../../redux/slices/authSlice";
 import { AppDispatch } from "../../redux/store";
@@ -37,7 +37,7 @@ export const Header: FC<HeaderProps> = ({ openAlert, addErrorMessage, changeColo
           <div className={s.buttons}>
             {isAuth ? (
               <>
-                <Link to={POST_CREATE_PATH}>
+                <Link to={ADD_POST_PATH}>
                   <Button variant="contained">Написать статью</Button>
                 </Link>
                 <Button onClick={onClickLogout} variant="contained" color="error">

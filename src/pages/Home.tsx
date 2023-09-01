@@ -15,6 +15,7 @@ import {
 } from "../redux/slices/postsSlice";
 import { Status } from "../types/types";
 import { selectUserData } from "../redux/slices/authSlice";
+import { BASE_URL } from "../utils/constants";
 
 export const Home: FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -46,7 +47,7 @@ export const Home: FC = () => {
                   key={item._id}
                   id={item._id}
                   title={item.title}
-                  imageUrl={item.imageUrl || ""}
+                  imageUrl={`${BASE_URL}${item.imageUrl}` || ""}
                   user={{
                     avatarUrl: item.user?.avatarUrl,
                     fullName: item.user?.fullName,

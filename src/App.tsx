@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 import { Routes, Route } from "react-router-dom";
 import { Header } from "./components";
 import { Home, FullPost, Registration, AddPost, Login } from "./pages";
-import { ADD_POST_PATH, LOGIN_PATH, MAIN_PATH, POST_PATH, REGISTER_PATH } from "./utils/constants";
+import { ADD_POST_PATH, EDIT_POST_PATH, LOGIN_PATH, MAIN_PATH, POST_PATH, REGISTER_PATH } from "./utils/constants";
 import { AlertMessage } from "./components/AlertMessage/AlertMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { AlertAppearance } from "./types/types";
@@ -52,6 +52,7 @@ const App: FC = () => {
           <Route path={MAIN_PATH} element={<Home />} />
           <Route path={POST_PATH} element={<FullPost />} />
           <Route path={ADD_POST_PATH} element={<AddPost />} />
+          <Route path={EDIT_POST_PATH} element={<AddPost />} />
           <Route
             path={LOGIN_PATH}
             element={

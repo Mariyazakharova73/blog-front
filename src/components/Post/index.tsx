@@ -10,6 +10,28 @@ import s from "./Post.module.scss";
 import { UserInfo } from "../UserInfo";
 import { PostSkeleton } from "./Skeleton";
 import { Link } from "react-router-dom";
+import { ReactNode } from "react-markdown/lib/react-markdown";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { fetchRemovePost } from "../../redux/slices/postsSlice";
+
+interface PostProps {
+  id?: string;
+  title?: string;
+  createdAt?: string;
+  imageUrl?: string;
+  user?: {
+    avatarUrl?: string;
+    fullName?: string;
+  };
+  viewsCount?: number;
+  commentsCount?: number;
+  tags?: string[];
+  children?: ReactNode;
+  isFullPost?: boolean;
+  isLoading?: boolean;
+  isEditable?: boolean;
+}
 
 export const Post: FC<any> = ({
   id,
@@ -25,11 +47,14 @@ export const Post: FC<any> = ({
   isLoading,
   isEditable,
 }) => {
+  const dispatch: AppDispatch = useDispatch();
   if (isLoading) {
     return <PostSkeleton />;
   }
 
-  const onClickRemove = () => {};
+  const onClickRemove = () => {
+    dispatch(fetchRemovePost(id))
+  };
 
   return (
     <div className={clsx(s.root, { [s.rootFull]: isFullPost })}>
@@ -46,7 +71,11 @@ export const Post: FC<any> = ({
         </div>
       )}
       {imageUrl && (
-        <img className={clsx(s.image, { [s.imageFull]: isFullPost })} src={imageUrl} alt={title} />
+        <img
+          className={clsx(s.image, { [s.imageFull]: isFullPost })}
+          src={imageUrl}
+          alt={`${title}.`}
+        />
       )}
       <div className={s.wrapper}>
         <UserInfo {...user} additionalText={createdAt} />

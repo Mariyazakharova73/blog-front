@@ -5,6 +5,8 @@ import { CommentsBlock } from "../components/CommentsBlock";
 import { useParams } from "react-router-dom";
 import axios from "../axios";
 import { PostItem } from "../types/types";
+import ReactMarkdown from "react-markdown";
+import { BASE_URL } from "../utils/constants";
 
 export const FullPost: FC = () => {
   const [post, setPost] = useState<PostItem | null>(null);
@@ -29,7 +31,7 @@ export const FullPost: FC = () => {
       <Post
         id={post?._id}
         title={post?.title}
-        imageUrl={post?.imageUrl || ""}
+        imageUrl={`${BASE_URL}${post?.imageUrl}` || ""}
         user={{
           avatarUrl: post?.user.avatarUrl,
           fullName: post?.user.fullName,
@@ -40,7 +42,7 @@ export const FullPost: FC = () => {
         tags={post?.tags}
         isFullPost
       >
-        <p>{post?.text}</p>
+        <ReactMarkdown children={post?.text || ""} />
       </Post>
       <CommentsBlock
         items={[
